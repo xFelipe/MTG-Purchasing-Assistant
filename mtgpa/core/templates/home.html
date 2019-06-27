@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Página inicial</title>
+</head>
+<body>
+<h1>Home</h1>
+
+<div>
+    <form action="" method="post" id="form_id">
+        {% csrf_token %}
+        <p><textarea name="cards" form="form_id" cols="30" rows="25"></textarea></p>
+        <input type="submit">
+    </form>
+</div>
+<div>
+    {{ cards }}
+</div>
+
+</body>
+</html>
