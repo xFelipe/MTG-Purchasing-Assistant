@@ -14,8 +14,8 @@
     </form>
 </div>
 <div>
-    {% for card, link in cards %}
-        <p><a href="{{ link }}" target="_blank">{{ card }}</a></p>
+    {% for qnt, card, link in cards %}
+        <p>{{ qnt }}x <a href="{{ link }}" target="_blank">{{ card }}</a></p>
     {% endfor %}
 </div>
 

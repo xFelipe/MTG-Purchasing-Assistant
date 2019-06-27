@@ -18,7 +18,10 @@ def home(request):
         cards = []
         content = request.POST['cards'].split('\r\n')
         for line in content:
-            cards.append((line, link_engine(line), ))
+            interpreted_line = line_interpreter(line)
+            cards.append((interpreted_line['qnt'],
+                          interpreted_line['card_name'],
+                          link_engine(interpreted_line['card_name']), ))
         return render(request, 'home.html', {'cards': cards, 'form': CardsForm(request.POST)})
 
 
