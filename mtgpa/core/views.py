@@ -9,6 +9,7 @@ from django.shortcuts import render
 def home(request):
     cards = ' '
     if request.method == 'POST':
-        cards = request.POST['cards']
+        cards = request.POST['cards'].split('\r\n')
+        print(request.POST['cards'].split('\n'))
     return render(request, 'home.html', {'cards': cards})
 
