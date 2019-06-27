@@ -6,16 +6,17 @@
 </head>
 <body>
 <h1>Home</h1>
-
 <div>
     <form action="" method="post" id="form_id">
         {% csrf_token %}
-        <p><textarea name="cards" form="form_id" cols="30" rows="25"></textarea></p>
-        <input type="submit">
+        <p>{{ form.cards }}</p>
+        <input type="submit" value="Enviar">
     </form>
 </div>
 <div>
-    {{ cards }}
+    {% for card, link in cards %}
+        <p><a href="{{ link }}" target="_blank">{{ card }}</a></p>
+    {% endfor %}
 </div>
 
 </body>
