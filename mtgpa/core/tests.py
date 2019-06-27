@@ -14,4 +14,4 @@ class TestHome(TestCase):
 
     def testInputNumbers(self):
         self.assertContains(self.response, '<textarea', 1)
-        self.assertContains(self.response, '<input', 1)
+        self.assertContains(self.response, '<input', 2)  # csrf
