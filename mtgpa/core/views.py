@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .forms import CardsForm
 from re import match
+from bs4 import BeautifulSoup
+import requests
 
 # https://ligamagic.net/?view=cards%2Fsearch&card=birds+of+paradise
 # https://ligamagic.net/?view=cards%2Fsearch&card=aether+Vial
@@ -36,5 +38,17 @@ def line_interpreter(line):
         g_dict['qnt'] = 1
     else:
         g_dict['qnt'] = int(g_dict['qnt'])
-
     return g_dict
+
+
+def market_search(card_name):
+    r = requests.get('https://ligamagic.net/?view=cards/card&card={}'.format(card_name))
+    text = r.text
+    soup = BeautifulSoup(text, 'lxml')
+    result = soup.find_all('div', class_='estoque-linha primeiro', mp=2) + \
+             soup.find_all('div', class_='estoque-linha', mp=2)
+    result = list(map(lambda x: x.find_all('img'), result))  # Pegar nome
+    result = list(map(lambda x: x[0], result))
+    result = list(map(lambda x: x['title'], result))
+    return set(result)
+    #return ('Power9', 'Card Castle', )
