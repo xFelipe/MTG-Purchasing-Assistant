@@ -1,5 +1,5 @@
 from django.test import TestCase
-from mtgpa.core.views import line_interpreter, market_search
+from mtgpa.core.views import line_interpreter, market_search,  sort_market
 
 
 # Create your tests here.
@@ -30,3 +30,7 @@ class TestFunctions(TestCase):
         self.assertIn('Power9', market_search('Llanowar Elves'))
         self.assertIn('Card Castle', market_search('Lightning Bolt'))
         self.assertIn('Cards e Games', market_search('Saskia the Unyielding'))
+
+    def test_sort_market(self):
+        d = {'b': [1,2], 'a': [1,2,3], 'c': [1]}
+        self.assertEqual(tuple(sort_market(d).items()), (('a', [1,2,3]), ('b', [1,2]), ('c', [1])))

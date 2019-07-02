@@ -19,16 +19,35 @@ def home(request):
     else:
         cards = []
         content = request.POST['cards'].split('\r\n')
+        market = dict()
         for line in content:
+            if not line:
+                continue
+
             interpreted_line = line_interpreter(line)
+
+            stores_have = market_search(interpreted_line['card_name'])
+            for store in stores_have:
+                try:
+                    market[store].append(interpreted_line['card_name'])
+                except:
+                    market[store] = [interpreted_line['card_name']]
+
             cards.append((interpreted_line['qnt'],
                           interpreted_line['card_name'],
-                          link_engine(interpreted_line['card_name']), ))
-        return render(request, 'home.html', {'cards': cards, 'form': CardsForm(request.POST)})
+                          link_engine(interpreted_line['card_name'])))
+        return render(request, 'home.html', {'cards': cards, 'form': CardsForm(request.POST), 'markets': sort_market(market)},)
 
 
 def link_engine(cardname):
     return link_base+str(cardname)
+
+
+def sort_market(market):
+    d = dict()
+    for key in sorted(market, key=lambda key: len(market[key]), reverse=True):
+        d[key] = market[key][:]
+    return d
 
 
 def line_interpreter(line):
@@ -49,6 +68,6 @@ def market_search(card_name):
              soup.find_all('div', class_='estoque-linha', mp=2)
     result = list(map(lambda x: x.find_all('img'), result))  # Pegar nome
     result = list(map(lambda x: x[0], result))
-    result = list(map(lambda x: x['title'], result))
-    return set(result)
-    #return ('Power9', 'Card Castle', )
+    markets = list(map(lambda x: x['title'], result))
+
+    return tuple(set(markets))

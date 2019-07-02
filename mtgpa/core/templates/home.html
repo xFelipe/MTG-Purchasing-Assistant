@@ -15,8 +15,24 @@
 </div>
 <div>
     {% for qnt, card, link in cards %}
-        <p>{{ qnt }}x <a href="{{ link }}" target="_blank">{{ card }}</a></p>
+        <p>{{ qnt }}x <a href="{{ link }}" target="_blank">{{ card }} </a></p>
     {% endfor %}
+
+    <br><br>
+
+    {% for store, have_cards in markets.items %}
+    <ul>
+        <li>{{ store }}</li>
+        <ol>
+            {% for have_card in have_cards %}
+                <li>{{ have_card }}</li>
+            {% endfor %}
+        </ol>
+    </ul>
+
+    {% endfor %}
+
+    <br><br>
 </div>
 
 </body>
