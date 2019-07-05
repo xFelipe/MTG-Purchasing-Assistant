@@ -27,7 +27,7 @@ class TestFunctions(TestCase):
         self.assertEqual(line_interpreter('Saskia the Unyielding'), {'qnt': 1, 'card_name': 'Saskia the Unyielding'})
 
     def test_market_search(self):
-        self.assertIn('Power9', market_search('Llanowar Elves'))
+        self.assertIn('A Loja do Pai', market_search('Llanowar Elves'))
         self.assertIn('Card Castle', market_search('Lightning Bolt'))
         self.assertIn('Cards e Games', market_search('Saskia the Unyielding'))
 

@@ -70,4 +70,4 @@ def market_search(card_name):
     result = list(map(lambda x: x[0], result))
     markets = list(map(lambda x: x['title'], result))
 
-    return tuple(set(markets))
+    return tuple(set(markets))[:]
