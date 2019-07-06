@@ -4,11 +4,7 @@ from re import match
 from bs4 import BeautifulSoup
 import requests
 
-# https://ligamagic.net/?view=cards%2Fsearch&card=birds+of+paradise
-# https://ligamagic.net/?view=cards%2Fsearch&card=aether+Vial
-# https://ligamagic.net/?view=cards/card&card=Rancor
-# m = match(r'((?P<qnt>\d*)(x|X){0,1}){0,1}( ){0,1}(?P<card_name>.*)', '123x Gelatinous Genesis')
-# m = match(r'((?P<qnt>\d*)(x|X)?)?( )?(?P<card_name>.*)', '1x Gelatinous Genesis')
+
 # Create your views here.
 ligamagic_card_link_base = 'https://ligamagic.net/?view=cards/card&card='
 store_card_link_base = 'https://ligamagic.net'
@@ -75,10 +71,9 @@ def market_search(card_name, precision=None):
     req = requests.get(magic_card_link)
     request_html = req.text
     soup = BeautifulSoup(request_html, 'lxml')
-    result = soup.find_all('div', class_='estoque-linha', mp=2, limit=precision)
-    result = list(map(lambda x: x.find_all(('img'), limit=10), result))  # Pegar nome
-    result = list(map(lambda x: x[0], result)) # result[0][0], result[0][-2] -- title loja, font estado
-    markets = list(map(lambda x: x['title'], result))
-
-    return tuple(set(markets))[:]
-
+    data = soup.find_all('div', class_='estoque-linha', mp=2, limit=precision)
+    data = list(map(lambda x: x.find_all('img'), data))
+    data = list(map(lambda x: x[0], data)) # title loja
+    stores = list(map(lambda x: x['title'], data))
+    unique_markets = tuple(set(stores))
+    return unique_markets
