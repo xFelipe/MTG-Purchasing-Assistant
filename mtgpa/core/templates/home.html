@@ -9,17 +9,22 @@
 <div>
     <form action="" method="post" id="form_id">
         {% csrf_token %}
-        <p>{{ form.cards }}</p>
-        <input type="submit" value="Enviar">
+        <div class="fieldBox" id="cards">
+            {{ form.cards.label_tag }}
+            <p>{{ form.cards }}</p>
+        </div>
+        <div class="fieldBox" id="precision">
+            {{ form.precision.label_tag }}
+            <p>{{ form.precision }}</p>
+            <input type="submit" value="Enviar">
+        </div>
     </form>
 </div>
 <div>
     {% for qnt, card, link in cards %}
         <p>{{ qnt }}x <a href="{{ link }}" target="_blank">{{ card }} </a></p>
     {% endfor %}
-
     <br><br>
-
     {% for store, have_cards in markets.items %}
     <ul>
         <li>{{ store }}</li>

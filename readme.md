@@ -12,10 +12,10 @@ ___
 8. Insire uma lista de cartas.
 Exemplo de cartas para inserção:
 ```console
-1x Hanweir Garrison
+2x Hanweir Garrison
 1x Iroas, God of Victory
-1x Kari Zev, Skyship Raider
-1x Rancor
+2x Kari Zev, Skyship Raider
+4x Rancor
 1x Eladamri's Call
 1x Naya Charm
 ```
