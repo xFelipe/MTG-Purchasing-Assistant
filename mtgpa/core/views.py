@@ -11,17 +11,16 @@ store_card_link_base = 'https://ligamagic.net'
 
 
 def home(request):
-    # if request.method != 'POST':
-    #     return render(request, 'home.html', {'form': CardsForm()})
-    # else:
-    #     content = request.POST['cards'].split('\r\n')
-    #     precision = int(request.POST['precision']) if(request.POST['precision']) else None
-    #     cards, market = search_engine(content, precision)
-    #
-    #     response = {'cards': cards, 'form': CardsForm(request.POST),
-    #                 'markets': sort_market(market)}
-    #     return render(request, 'home.html', response)
-    return render(request, 'home.html')
+    if request.method != 'POST':
+        return render(request, 'home.html', {'form': CardsForm()})
+    else:
+        content = request.POST['cards'].split('\r\n')
+        precision = int(request.POST['precision']) if(request.POST['precision']) else None
+        cards, market = search_engine(content, precision)
+
+        response = {'cards': cards, 'form': CardsForm(request.POST),
+                    'markets': sort_market(market)}
+        return render(request, 'home.html', response)
 
 
 def search_engine(content, precision):
