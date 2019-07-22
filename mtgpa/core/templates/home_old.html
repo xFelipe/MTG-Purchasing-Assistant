@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MTG-Purchasing-Assistant</title>
+</head>
+<body>
+<h1>Assistente de compras</h1>
+<div>
+    <form action="" method="post" id="form_id">
+        {% csrf_token %}
+        <div class="fieldBox" id="cards">
+            {{ form }}
+            <input type="submit" value="Enviar">
+        </div>
+    </form>
+</div>
+<div>
+
+    <h3>Cartas buscadas:</h3>
+    {% for qnt, card, link in cards %}
+        <p>{{ qnt }}x <a href="{{ link }}" target="_blank">{{ card }} </a></p>
+    {% endfor %}
+    <h3>Lojas encontradas:</h3>
+    {% for store, have_cards in markets.items %}
+    <ul>
+        <li>{{ store }}</li>
+        <ol>
+            {% for have_card in have_cards %}
+                <li>{{ have_card }}</li>
+            {% endfor %}
+        </ol>
+    </ul>
+
+    {% endfor %}
+
+    <br><br>
+</div>
+
+</body>
+</html>

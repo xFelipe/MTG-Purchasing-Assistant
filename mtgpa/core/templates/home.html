@@ -1,39 +1,79 @@
+{% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:8000/ -->
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Página inicial</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>MTG-Purchasing-Assistant</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+  <style media="screen">
+
+  .label-fields {
+      margin-bottom: 0px;
+  }
+
+  .bg {
+    background-image: url("{% static 'img/bg.jpg' %}");
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+  .list-group-master {
+    list-style: none;
+  }
+  body {
+    font-family: 'Open Sans', sans-serif;
+  }
+  </style>
+
 </head>
-<body>
-<h1>Home</h1>
+<body class="container bg">
+<h1 class="text-white p-1 m-1 text-center font-weight-bold my-5">Assistente de compras</h1>
 <div>
     <form action="" method="post" id="form_id">
         {% csrf_token %}
-        <div class="fieldBox" id="cards">
-            {{form}}
-            <input type="submit" value="Enviar">
+        <div class="input-group mb-3" id="cards">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><label class="label-fields" for="id_cards">Cartas</label></span>
+           </div>
+            {{ form.cards|add_class:"form-control" }}
         </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><label class="label-fields" for="id_precision">Precisão de preço:</label></span>
+          </div>
+          {{ form.precision|add_class:"form-control" }}
+        </div>
+        <input type="submit" class="btn btn-primary btn-lg btn-block mb-3" value="Buscar"/>
     </form>
 </div>
+{% if cards %}
 <div>
-    {% for qnt, card, link in cards %}
-        <p>{{ qnt }}x <a href="{{ link }}" target="_blank">{{ card }} </a></p>
-    {% endfor %}
-    <br><br>
-    {% for store, have_cards in markets.items %}
-    <ul>
-        <li>{{ store }}</li>
-        <ol>
-            {% for have_card in have_cards %}
-                <li>{{ have_card }}</li>
-            {% endfor %}
-        </ol>
+    <h3 class="text-white text-center font-weight-bold mb-4 mt-5">Cartas buscadas</h3>
+    <ul class="list-group m-3 text-primary">
+        {% for qnt, card, link in cards %}
+            <li class="list-group-item mb-2">{{ qnt }}x <a href="{{ link }}" target="_blank">{{ card }} </a></li>
+        {% endfor %}
     </ul>
 
-    {% endfor %}
+    <h3 class="text-white mb-3 text-center font-weight-bold">Lojas encontradas</h3>
 
-    <br><br>
+    <ul class="list-group">
+        {% for store, have_cards in markets.items %}
+            <li class="list-group-item h5 text-dark">{{ store }}</li>
+            <ol class="list-group-master ml-5 my-3">
+                {% for have_card in have_cards %}
+                    <li class="text-white">{{ have_card }}</li>
+                {% endfor %}
+            </ol>
+        {% endfor %}
+    </ul>
+    <br>
 </div>
+{% endif %}
 
 </body>
 </html>
