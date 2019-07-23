@@ -1,1 +1,1 @@
-web: gunicorn mtgpa.wsgi --timeout 100 --log-file -
+web: gunicorn mtgpa.wsgi --timeout 5 --log-file -
