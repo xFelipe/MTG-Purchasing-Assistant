@@ -1,5 +1,6 @@
 # MTG-Purchasing-Assistant
 Aplicação criada para auxiliar jogadores a comprar cartas de magic na internet.
+Link para aplicação rodando: https://mtg-purchasing-assistant.herokuapp.com/
 ___
 
 1. `git clone https://github.com/xFelipe/MTG-Purchasing-Assistant`
